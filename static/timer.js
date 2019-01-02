@@ -2,36 +2,58 @@
 var timer1; //タイマーを格納する変数（タイマーID）の宣言
 var timer2;
 
-var start_timer_num;
-var stop_timer_num;
+var start_timer_num; //start命令を実行したタイマーの番号
+var stop_timer_num; //stop命令を実行したタイマーの番号
+
+var server_timer_num //サーバーに命令を送るタイマーの番号
+var server_order
+//サーバーに送る命令を判別するための変数
+/*
+0:リセット
+1:スタート
+2:ストップ
+3:終了
+*/
+
+function serverTimer(server_timer_num, server_order) {
+    console.log("serverTimerにはいったよ")
+    $.ajax({
+        type: "post", // method = "POST"
+        url: "127.0.0.1:5000/timer/start",
+        data: {
+            "timer": 0,
+            "order": 1
+        }
+    });
+
+
+}
 
 //カウントダウン関数を1000ミリ秒毎に呼び出す関数
 function cntStart(start_timer_num) {
-    console.log(start_timer_num);
-    console.log(document.getElementById("timer" + start_timer_num));
     document.getElementById("timer" + start_timer_num).elements[2].disabled = true;
     if (start_timer_num == 1) {
+        serverTimer(1)
         timer1 = setInterval("countDown(1)", 1000);
     } else if (start_timer_num == 2) {
+        serverTimer(2)
         timer2 = setInterval("countDown(2)", 1000);
     }
 }
 
 //タイマー停止関数
 function cntStop(stop_timer_num) {
-    console.log(stop_timer_num)
     document.getElementById("timer" + stop_timer_num).elements[2].disabled = false;
-    if(stop_timer_num==1){
+    if (stop_timer_num == 1) {
         clearInterval(timer1);
-    }
-    else if(stop_timer_num==2){
+    } else if (stop_timer_num == 2) {
         clearInterval(timer2);
     }
 }
 
 //カウントダウン関数
 function countDown(start_timer_num) {
-    var min = document.getElementById("timer"+start_timer_num).elements[0].value;
+    var min = document.getElementById("timer" + start_timer_num).elements[0].value;
     var sec = document.getElementById("timer" + start_timer_num).elements[1].value;
 
     if ((min == "") && (sec == "")) {
