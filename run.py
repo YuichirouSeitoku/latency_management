@@ -1,4 +1,5 @@
 from flask import Flask,render_template
+import qrcode
 
 app = Flask(__name__)
 
@@ -21,5 +22,16 @@ def get_timer_info():
     response = Response()
     response.status_code = 200
     return response
+
+@app.route('/order')
+def order():
+    return render_template('order.html')
+
+@app.route('/order/test', methods=['POST'])
+def order_test():
+    print(request)
+    return render_template('timer.html')
+    
+    
 if __name__ == '__main__':
     app.run(debug=True)
