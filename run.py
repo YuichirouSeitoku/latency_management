@@ -1,4 +1,5 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request
+from flask import jsonify
 import qrcode
 
 app = Flask(__name__)
@@ -29,8 +30,15 @@ def order():
 
 @app.route('/order/test', methods=['POST'])
 def order_test():
-    print(request)
-    return render_template('timer.html')
+    """
+    if request.headers['Content-Type'] != 'application/json':
+        print(request.headers['Content-Type'])
+        return render_template('order_test.html');
+    """
+    print(request.json)
+
+    message='1番の番号札を渡してください'
+    return render_template('order_test.html',message=message);
     
     
 if __name__ == '__main__':
