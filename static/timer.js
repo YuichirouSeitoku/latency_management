@@ -16,13 +16,22 @@ var server_order
 */
 
 function serverTimer(server_timer_num, server_order) {
+    var data= {
+            "timer": "0",
+            "order": "1"
+        }
+    var hostUrl = location.href + "/start"
     console.log("serverTimerにはいったよ")
     $.ajax({
         type: "post", // method = "POST"
-        url: "127.0.0.1:5000/timer/start",
-        data: {
-            "timer": 0,
-            "order": 1
+        url: hostUrl,
+        
+        contentType: 'application/json',
+        dataType: 'json',
+        data:JSON.stringify(data),
+        timeout: 3000,
+        success: function (result) {
+            console.log(result);
         }
     });
 
