@@ -7,13 +7,12 @@ $( function() {
         $.ajax({
             url: hostUrl,
             type:'POST',
-            dataType: 'json',
+            dataType: 'jsonp',
             data : {parameter1 : param1, parameter2 : param2 },
             timeout:3000,
-        }).done(function(data) {
-                          alert("ok");
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                         alert("error");
-        })
+            success: function(result){
+                console.log(result);
+            }
+        });
     });
-} );
+});

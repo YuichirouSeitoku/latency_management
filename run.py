@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,jsonify
 import qrcode
 
 app = Flask(__name__)
@@ -30,7 +30,12 @@ def order():
 @app.route('/order/test', methods=['POST'])
 def order_test():
     print(request)
-    return render_template('timer.html')
+    result={
+        "Result":{
+            "test":ok
+        }
+    }
+    return jsonify(ResultSet=result)
     
     
 if __name__ == '__main__':
