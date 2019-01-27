@@ -5,13 +5,16 @@ import json
 from collections import OrderedDict
 import pprint
 
-
+import serverTimer
 #listのfilterに使用
 import itertools
 
 app = Flask(__name__)
 kind_of_card = ["akino","harusu","ashi","tago","oku"]
 available_card = [True,True,True,True,True]
+
+Timer1 = serverTimer.Timer()
+Timer2 = serverTimer.Timer()
 
 @app.route('/')
 def menu():
@@ -33,7 +36,22 @@ def get_timer_info():
             "test":"ok"
         }
     }
-    print("今から返すよーー")
+    
+    print(data["timer"])
+    print(data["order"])
+    print(data["second"])
+    
+    if data["order"] == "start":
+        if data["timer"] == 1:
+            print("Timer1に値をセットするよー")
+            Timer1.setTime(float(data["second"]))
+        if data["timer"] == 2:
+            print("Timer2に値をセットするよー")
+            Timer2.setTime(float(data["second"]))
+
+    #print("Timer1:残り"+str(Timer1.getTime())+"秒")
+    #print("Timer2:残り"+str(Timer2.getTime())+"秒")
+    
     return jsonify(ResultSet=result)
 
 @app.route('/order')

@@ -15,20 +15,21 @@ var server_order
 3:終了
 */
 
-function serverTimer(server_timer_num, server_order) {
-    var data= {
-            "timer": "0",
-            "order": "1"
-        }
+function serverTimer(server_timer_num, server_order, second) {
+    var data = {
+        "timer": server_timer_num,
+        "order": server_order,
+        "second": second
+    }
     var hostUrl = location.href + "/start"
     console.log("serverTimerにはいったよ")
     $.ajax({
         type: "post", // method = "POST"
         url: hostUrl,
-        
+
         contentType: 'application/json',
         dataType: 'json',
-        data:JSON.stringify(data),
+        data: JSON.stringify(data),
         timeout: 3000,
         success: function (result) {
             console.log(result);
@@ -40,13 +41,22 @@ function serverTimer(server_timer_num, server_order) {
 
 //カウントダウン関数を1000ミリ秒毎に呼び出す関数
 function cntStart(start_timer_num) {
+    let min = document.getElementById("timer" + start_timer_num).elements[0].value;
+    let sec = document.getElementById("timer" + start_timer_num).elements[1].value;
+    let server_sec = (60*Number(min))+Number(sec); 
     document.getElementById("timer" + start_timer_num).elements[2].disabled = true;
-    if (start_timer_num == 1) {
-        serverTimer(1)
-        timer1 = setInterval("countDown(1)", 1000);
-    } else if (start_timer_num == 2) {
-        serverTimer(2)
-        timer2 = setInterval("countDown(2)", 1000);
+
+    if ((min == "") && (sec == "")) {
+        alert("時刻を設定してください！");
+        reSet();
+    } else {
+        if (start_timer_num == 1) {
+            timer1 = setInterval("countDown(1)", 1000);
+            serverTimer(1, "start",server_sec)
+        } else if (start_timer_num == 2) {
+            timer2 = setInterval("countDown(2)", 1000);
+            serverTimer(2, "start",server_sec)
+        }
     }
 }
 
@@ -55,15 +65,17 @@ function cntStop(stop_timer_num) {
     document.getElementById("timer" + stop_timer_num).elements[2].disabled = false;
     if (stop_timer_num == 1) {
         clearInterval(timer1);
+        serverTimer(1, "stop",0)
     } else if (stop_timer_num == 2) {
         clearInterval(timer2);
+        serverTimer(2, "stop",0)
     }
 }
 
 //カウントダウン関数
 function countDown(start_timer_num) {
-    var min = document.getElementById("timer" + start_timer_num).elements[0].value;
-    var sec = document.getElementById("timer" + start_timer_num).elements[1].value;
+    let min = document.getElementById("timer" + start_timer_num).elements[0].value;
+    let sec = document.getElementById("timer" + start_timer_num).elements[1].value;
 
     if ((min == "") && (sec == "")) {
         alert("時刻を設定してください！");
