@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from flask import Flask,render_template,jsonify
+=======
+from flask import Flask,render_template,request
+from flask import jsonify
+>>>>>>> 336f141d794bfa9d239d23fa11a6bd4a6dbf6fef
 import qrcode
 
 app = Flask(__name__)
@@ -29,6 +34,7 @@ def order():
 
 @app.route('/order/test', methods=['POST'])
 def order_test():
+<<<<<<< HEAD
     print(request)
     result={
         "Result":{
@@ -36,6 +42,17 @@ def order_test():
         }
     }
     return jsonify(ResultSet=result)
+=======
+    """
+    if request.headers['Content-Type'] != 'application/json':
+        print(request.headers['Content-Type'])
+        return render_template('order_test.html');
+    """
+    print(request.json)
+
+    message='1番の番号札を渡してください'
+    return render_template('order_test.html',message=message);
+>>>>>>> 336f141d794bfa9d239d23fa11a6bd4a6dbf6fef
     
     
 if __name__ == '__main__':
