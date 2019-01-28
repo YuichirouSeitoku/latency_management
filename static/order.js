@@ -5,15 +5,17 @@ $(function () {
         console.log(hostUrl);
         var param1 = 1;
         var param2 = 10;
+        var data = {"parameter1":param1,"parameter2":param2}
 
         $.ajax({
             url: hostUrl,
             type:'POST',
+            contentType:'application/json',
             dataType: 'json',
-            data :{parameter1 : param1, parameter2 : param2 } ,
+            data : JSON.stringify(data) ,
             timeout:3000,
-            success: function(result){
-                console.log(result);
+            success: function(data){
+                alert(data.ResultSet.Result.qrcode+"の札を渡してください");
             }
         });
     });

@@ -61,12 +61,23 @@ def order():
 
 @app.route('/order/test', methods=['POST'])
 def order_test():
-    print("requestを表示するよーーーー");
-    result={
-        "Result":{
-            "test":"ok"
+    #filterを使ったもっとうまいやり方がある
+    for i, bool_card in enumerate(available_card):
+        if bool_card == True:
+            print("Trueに入ったよ")
+            result={
+                "Result":{
+                    "qrcode":kind_of_card[i]
+                }
+            }
+            available_card[i]=False
+            break
+        result = {
+            "Result":{
+                "qrcode":"現在渡せる札はありません"
+            }
         }
-    }
+    
     print("今から返すよーー")
     return jsonify(ResultSet=result)
     
