@@ -81,6 +81,11 @@ def order_test():
     print("今から返すよーー")
     return jsonify(ResultSet=result)
     
+@app.route('/akino')
+def akino():
+    #とりあえずTimerは1つだと仮定
+    message=str(Timer1.getTime()//60)
+    return render_template('remainingTime.html',message=message)
     
 if __name__ == '__main__':
     app.run(debug=True)
