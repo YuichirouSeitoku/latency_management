@@ -86,6 +86,11 @@ def akino():
     #とりあえずTimerは1つだと仮定
     message=str(Timer1.getTime()//60)
     return render_template('remainingTime.html',message=message)
+
+@app.route('/haruno')
+def harusu():
+    message=str(Timer1.getTime()//60)
+    return render_template('remainingTime.html',message=message)   
     
 if __name__ == '__main__':
     app.run(debug=True)

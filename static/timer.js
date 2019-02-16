@@ -15,11 +15,15 @@ var server_order
 3:終了
 */
 
-function serverTimer(server_timer_num, server_order, second) {
+//サーバーにタイマーの時間を送信する関数
+function serverTimer(server_timer_num, server_order) {
+    let min = document.getElementById("timer" + server_timer_num).elements[0].value;
+    let sec = document.getElementById("timer" + server_timer_num).elements[1].value;
+    let server_sec = (60 * Number(min)) + Number(sec);
     var data = {
         "timer": server_timer_num,
         "order": server_order,
-        "second": second
+        "second": server_sec
     }
     var hostUrl = location.href + "/start"
     console.log("serverTimerにはいったよ")
@@ -43,19 +47,17 @@ function serverTimer(server_timer_num, server_order, second) {
 function cntStart(start_timer_num) {
     let min = document.getElementById("timer" + start_timer_num).elements[0].value;
     let sec = document.getElementById("timer" + start_timer_num).elements[1].value;
-    let server_sec = (60*Number(min))+Number(sec); 
     document.getElementById("timer" + start_timer_num).elements[2].disabled = true;
 
     if ((min == "") && (sec == "")) {
         alert("時刻を設定してください！");
         reSet();
     } else {
+        serverTimer(start_timer_num, "start")
         if (start_timer_num == 1) {
             timer1 = setInterval("countDown(1)", 1000);
-            serverTimer(1, "start",server_sec)
         } else if (start_timer_num == 2) {
             timer2 = setInterval("countDown(2)", 1000);
-            serverTimer(2, "start",server_sec)
         }
     }
 }
@@ -63,12 +65,11 @@ function cntStart(start_timer_num) {
 //タイマー停止関数
 function cntStop(stop_timer_num) {
     document.getElementById("timer" + stop_timer_num).elements[2].disabled = false;
+    serverTimer(stop_timer_num, "stop")
     if (stop_timer_num == 1) {
         clearInterval(timer1);
-        serverTimer(1, "stop",0)
     } else if (stop_timer_num == 2) {
         clearInterval(timer2);
-        serverTimer(2, "stop",0)
     }
 }
 
@@ -78,7 +79,7 @@ function countDown(start_timer_num) {
     let sec = document.getElementById("timer" + start_timer_num).elements[1].value;
 
     if ((min == "") && (sec == "")) {
-        alert("時刻を設定してください！");
+        alert("時刻を設定してください");
         reSet();
     } else {
         if (min == "") min = 0;
