@@ -59,8 +59,19 @@ def order():
     print("order.htmlを返すよ")
     return render_template('order.html')
 
-@app.route('/order/test', methods=['POST'])
+@app.route('/order/new')
 def order_test():
+    data = request.data.decode('utf-8')
+    data = json.loads(data)
+    
+    print("塩の数")
+    print(data["salt"])
+    print("チーズの数")
+    print(data["cheese"])
+    print("マヨの数")
+    print(data["mayo"])
+    print("七味の数")
+    print(data["redPapper"])
     #filterを使ったもっとうまいやり方がある
     for i, bool_card in enumerate(available_card):
         if bool_card == True:
@@ -77,9 +88,8 @@ def order_test():
                 "qrcode":"現在渡せる札はありません"
             }
         }
-    
-    print("今から返すよーー")
-    return jsonify(ResultSet=result)
+    #return render_template('orderResult.html',ResultSet=result,data=data)
+    return render_template('menu.html')
     
 @app.route('/akino')
 def akino():
