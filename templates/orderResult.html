@@ -1,0 +1,9 @@
+{% extends "order2.html" %}
+{% block body %}
+    <div>ここに表示させるよ</div>
+    <p>塩、{{data["salt"]}}個</p>
+    <p>チーズ、{{data["cheese"]}}個</p>
+    <p>七味、{{data["redPepper"]}}個</p>
+    <p>マヨ、{{data["mayo"]}}個の注文承りました。</p>
+    <p>{{ResultSet.Result.qrcode}}の札を渡してください</p>
+{% endblock %}
