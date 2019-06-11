@@ -1,0 +1,94 @@
+body{
+    width: 100%;
+    overflow: hidden;
+}
+
+.container-fluid{
+    height: 100%;
+    width: auto;
+}
+.areaA{
+    width: auto;
+    height: 50%;
+    position: relative;
+}
+
+.itemA{
+    position: absolute;
+    right: 10%;
+    bottom: 25%;
+    overflow: hidden;
+    width: 120%;
+    -webkit-transform-origin: rotate(6deg);
+    -ms-transform-origin: rotate(6deg);
+    transform: rotate(6deg);
+
+    height: 125%;
+    position: relative;
+}
+
+.revA{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 120%;
+    width: 100%;
+    overflow: hidden;
+    -webkit-transform-origin: rotate(-6deg);
+    -ms-transform-origin: rotate(-6deg);
+    transform: rotate(-6deg);
+    background: linear-gradient(pink,rgb(104, 212, 104));
+    position: relative;
+}
+
+a{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.areaB{
+    width: auto;
+    height: 50%;
+    position: relative;
+}
+
+.itemB{
+    position: absolute;
+    right:10%;
+    overflow: hidden;
+    width: 120%;
+    -webkit-transform-origin: rotate(6deg);
+    -ms-transform-origin: rotate(6deg);
+    transform: rotate(6deg);
+    height: 125%;
+    position: relative;
+}
+
+.revB{
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    height: 125%;
+    width: 100%;
+    overflow: hidden;
+    -webkit-transform-origin: rotate(-6deg);
+    -ms-transform-origin: rotate(-6deg);
+    transform: rotate(-6deg);
+    background: linear-gradient(rgb(149, 251, 255),rgb(157, 91, 211));
+    position: relative;
+
+}
+
+
+.titleA{
+    color: black;
+
+}
+
+.titleB{
+    color: black;
+}
